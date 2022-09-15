@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   GET /production_companies
   GET /production_companies/:id
 =end
+resources :movies, only: [:index,:show]
+resources :production_companies, only: [:index,:show]
 end
