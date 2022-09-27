@@ -1,7 +1,12 @@
 require "csv"
 
-Movie.delete_all
+
 ProductionCompany.delete_all
+Page.delete_all
+MovieGenre.delete_all
+Genre.delete_all
+Movie.delete_all
+
 
 filename = Rails.root.join("db/top_movies.csv")
 
@@ -23,6 +28,14 @@ movies.each do |m|
       average_vote: m["avg_vote"]
     )
     puts "INVALID movie #{m['original_title']}" unless movie&.valid?
+    genres = m["genre"].split(",").map(&:strip)
+
+    genres.each do |genre_name|
+      genre = Genre.find_or_create_by(name: genre_name)
+
+      MovieGenre.create(movie: movie, genre:genre)
+    end
+
   else
     puts "invalid prouduction company #{m["production_company"]} for movie #{m['origianl_title']}"
 
@@ -31,3 +44,18 @@ movies.each do |m|
 end
 puts "Created #{ProductionCompany.count} Production Companies"
 puts "Created #{Movie.count} movies."
+puts "Created #{Genre.count} Genres"
+puts "Created #{MovieGenre.count} Movies Genres "
+
+
+Page.create(
+  title: 'About the Data',
+  content: ' The data powering this very cool website provided by IDMD Kaggle ds',
+  permalink: 'about_the_data'
+)
+
+Page.create(
+  title: 'Contact Us',
+  content: 'If you like this site and want to chat about the project or the data, email me at: obviously_fake@email.com',
+  permalink: 'contact'
+)

@@ -4,6 +4,9 @@ class ProductionCompaniesController < ApplicationController
 
     @production_companies = ProductionCompany.ordered_by_movies
 
+
+
+
   end
 
   def show

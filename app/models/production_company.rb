@@ -4,9 +4,9 @@ class ProductionCompany < ApplicationRecord
 
   def self.ordered_by_movies
     @production_companies = ProductionCompany.select("production_companies.*")
-                                              .select("COUNT(production_companies.id) as movie_count" )
+                                              .select("COUNT(production_companies.id) as movie_count")
                                               .left_joins(:movies)
                                               .group("production_companies.id")
-                                              .order("movie_count desc")
+                                              .order("movie_count DESC")
   end
 end

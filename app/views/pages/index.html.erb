@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h2 class="title is-4">CMS Pages</h1>
+
+<div id="pages">
+  <% @pages.each do |page| %>
+    <%= render page %>
+    <p>
+      <%= link_to "Show this page", permalink_path(page.permalink), class: 'button is-primary' %>
+    </p>
+    <hr>
+  <% end %>
+</div>
+<hr>
+<%= link_to "New page", new_page_path,class: 'button is-secondary' %>
